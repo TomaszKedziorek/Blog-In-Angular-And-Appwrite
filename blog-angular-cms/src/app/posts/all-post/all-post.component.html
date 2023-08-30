@@ -1,0 +1,74 @@
+<section class="container mt-5" id="categoryForm">
+  <div class="row justify-content-center shadow-effect my-5 p-5">
+    <div class="col-md-12">
+
+      <h3 class="text-center">All Blog Posts</h3>
+      <p class=" text-center fs-5 mb-5">Here you can manage your blog posts.</p>
+
+      <div class="row justify-content-evenly">
+        <button routerLink="/" class="btn btn-lg btn-info col-12 col-sm-6 col-md-4 mt-1 mt-md-0">Back to
+          Dashboard</button>
+        <button routerLink="/posts/new" class="btn btn-lg btn-primary col-12 col-sm-6 col-md-4 mt-1 mt-md-0">Add
+          New Post</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row justify-content-center shadow-effect my-5 p-5">
+    <div class="col-md-12">
+      <div class="overflow-x-auto" style="white-space: nowrap;">
+        <div class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="categoryRadio" id="all" (click)="onSelectedCategory()"
+            autocomplete="off" checked="">
+          <label class="btn btn-outline-primary" for="all">All</label>
+          <div *ngFor="let category of categories;let i = index ">
+            <input type="radio" class="btn-check" name="categoryRadio" [id]="category.id"
+              (click)="onSelectedCategory(category.id)" autocomplete="off">
+            <label class="btn btn-outline-primary" [for]="category.id">{{category.data.category}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Viees</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr *ngFor="let post of postsToDisplay;let i = index">
+              <th width="10" scope="row">{{i+1}}</th>
+              <td width=""><img [src]="post.data.image" class="img-fluid" style="min-width: 5rem;max-width: 10rem;">
+              </td>
+              <td width="200">{{post.data.title}}</td>
+              <td>{{post.data.category.category}}</td>
+              <td>{{post.data.views}} </td>
+              <td>
+            <tr>{{post.data.createdAt|date:"dd-MM-YYY"}}</tr>
+            <tr>{{post.data.createdAt|date:"HH:mm"}}</tr>
+            </td>
+            <td>
+              <button [routerLink]="['/posts/edit',post.id]" class="btn btn-warning mx-1  mb-1">Edit</button>
+              <button (click)="onDelete(post.id,post.data.imageId)" class="btn btn-danger mx-1  mb-1 ">Delete</button>
+              <button *ngIf="!post.data.isFeatured" (click)="onFeatured(post.id, true)"
+                class="btn btn-success mx-1  mb-1 ">Mark Featured</button>
+              <button *ngIf="post.data.isFeatured" (click)="onFeatured(post.id,false)"
+                class="btn btn-info mx-1 mb-1 ">Remove Featured</button>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</section>

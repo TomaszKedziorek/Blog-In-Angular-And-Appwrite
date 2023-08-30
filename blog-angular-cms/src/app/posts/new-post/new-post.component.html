@@ -1,0 +1,113 @@
+<section class="container mt-5" id="categoryForm">
+  <div class="row justify-content-center shadow-effect my-5 p-5">
+    <div class="col-md-12">
+
+      <h3 class="text-center">{{formStatus}} Post</h3>
+      <p class=" text-center fs-5 mb-5">Here you can {{formStatus| lowercase}} blog posts.</p>
+
+      <div class="row justify-content-evenly">
+        <button routerLink="/posts" class="btn btn-lg btn-info col-12 col-sm-6 col-md-4 mt-1 mt-md-0">Back to
+          Posts</button>
+        <div class="col-12 col-sm-6 col-md-4 mt-1 mt-md-0"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row justify-content-center my-5 ">
+    <div class="col-md-12">
+      <div *ngIf="postForm">
+        <form [formGroup]="postForm" (submit)="onSubmit()">
+
+          <div class="row justify-content-evenly shadow-effect p-2">
+            <div class="col-md-7 ">
+              <div class="form-group has-danger">
+                <label class="form-label mt-4" for="title">Title</label>
+                <input formControlName="title" (keyup)="onTitleChange($event)"
+                  [ngClass]="{'is-invalid': controls.title.touched && controls.title.invalid}" type="text"
+                  class="form-control" id="title">
+                <div *ngIf="controls.title.touched && controls.title.invalid" class="invalid-feedback">
+                  <div *ngIf="controls.title.errors?.required">This field is required!</div>
+                  <div *ngIf="controls.title.errors?.minlength||controls.title.errors?.maxlength">This field must be
+                    3-100 characters long! </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label mt-4" for="permalink">Permalink</label>
+                <input formControlName="permalink" name="permalink" readonly type="text" class="form-control"
+                  id="permalink" [ngClass]="{'is-invalid': controls.permalink.touched && controls.permalink.invalid}">
+                <div *ngIf="controls.permalink.touched && controls.permalink.invalid" class="invalid-feedback">
+                  <div *ngIf="controls.permalink.errors?.required">This field is required!</div>
+                </div>
+              </div>
+
+              <div class="form-group has-danger">
+                <label class="form-label mt-4" for="excerpt">Excerpt</label>
+                <textarea formControlName="excerpt" id="excerpt" rows="10"
+                  [ngClass]="{'is-invalid': controls.excerpt.touched && controls.excerpt.invalid}"
+                  class="form-control"></textarea>
+                <div *ngIf="controls.excerpt.touched && controls.excerpt.invalid" class="invalid-feedback">
+                  <div *ngIf="controls.excerpt.errors?.required">This field is required!</div>
+                  <div *ngIf="controls.excerpt.errors?.minlength||controls.excerpt.errors?.maxlength">
+                    This field must be 1-248 characters long! </div>
+                </div>
+              </div>
+            </div>
+
+            <div class=" col-md-5 ">
+              <div class=" form-group has-danger">
+                <label for="category" class="form-label mt-4">Post category</label>
+                <select formControlName="category" class="form-select" id="category"
+                  [ngClass]="{'is-invalid': controls.category.touched && controls.category.invalid}">
+                  <option disabled selected>--Select a category--</option>
+                  <option *ngFor="let category of categories" value="{{category.id}}">
+                    {{category.data.category}}</option>
+                </select>
+                <div *ngIf="controls.category.touched && controls.category.invalid" class="invalid-feedback">
+                  <div *ngIf="controls.category.errors?.required">This field is required!</div>
+                </div>
+              </div>
+
+              <div class="form-group has-danger">
+                <label for="file" class="form-label mt-4">Post image</label>
+                <input formControlName="image" (change)="onImageChange($event)" class="form-control is-invalid"
+                  type="file" id="file" accept="image/*"
+                  [ngClass]="{'is-invalid': controls.image.touched && controls.image.invalid}">
+                <div *ngIf="controls.image.touched && controls.image.invalid" class="invalid-feedback">
+                  <div *ngIf="controls.image.errors?.required">This field is required!</div>
+                </div>
+                <div class="row">
+                  <img [src]="imgSrc" class="form-control img-fluid border-0">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row shadow-effect mt-5 pt-2 pb-3">
+            <div class="form-group has-danger">
+              <label class="form-label mt-4" for="content">Post content</label>
+              <angular-editor formControlName="content" [placeholder]="'Enter text here...'" id="content"
+                class="form-control"
+                [ngClass]="{'is-invalid': controls.content.touched && controls.content.invalid}"></angular-editor>
+              <div *ngIf="controls.content.touched && controls.content.invalid" class="invalid-feedback">
+                <div *ngIf="controls.content.errors?.required">This field is required!</div>
+                <div *ngIf="controls.content.errors?.minlength||controls.content.errors?.maxlength">
+                  This field must be 1-2000 characters long! </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-evenly mt-5">
+            <div class="ol-12 col-sm-6 col-md-4 mt-1 mt-md-0 mt-md-0"></div>
+            <button [disabled]="postForm.invalid"
+              class="btn btn-lg btn-primary col-12 col-sm-6 col-md-4 mt-1 mt-md-0 mt-md-0">Save Post</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</section>

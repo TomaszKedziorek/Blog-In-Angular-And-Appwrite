@@ -1,0 +1,86 @@
+<section class="container mt-5" id="categoryForm">
+  <div class="row justify-content-center shadow-effect my-5 p-5">
+    <div class="col-md-12">
+
+      <h3 class="text-center">All Blog Comments</h3>
+      <p class=" text-center fs-5 mb-5">Here you can manage comments of your posts.</p>
+
+      <div class="row justify-content-evenly">
+        <button routerLink="/" class="btn btn-lg btn-info col-12 col-sm-6 col-md-4 mt-1 mt-md-0">Back to
+          Dashboard</button>
+        <div class="col-12 col-sm-6 col-md-4 mt-1 mt-md-0"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row justify-content-center shadow-effect my-5 p-5">
+    <div class="col-md-12">
+
+      <div class="overflow-x-auto" style="white-space: nowrap;">
+        <div class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="categoryRadio" id="all" (click)="onSelectedCategory('all')"
+            autocomplete="off" >
+          <label class="btn btn-outline-primary" for="all">All</label>
+
+          <input type="radio" class="btn-check" name="categoryRadio" id="approved" (click)="onSelectedCategory('approved')"
+            autocomplete="off">
+          <label class="btn btn-outline-primary" for="approved">Approved</label>
+
+          <input type="radio" class="btn-check" name="categoryRadio" id="notApproved" (click)="onSelectedCategory('notApproved')"
+            autocomplete="off" checked="">
+          <label class="btn btn-outline-primary" for="notApproved">Not Approved</label>
+
+          <input type="radio" class="btn-check" name="categoryRadio" id="rootComment" (click)="onSelectedCategory('rootComment')"
+            autocomplete="off" >
+          <label class="btn btn-outline-primary" for="rootComment">Root Comments</label>
+
+          <input type="radio" class="btn-check" name="categoryRadio" id="child" (click)="onSelectedCategory('childComment')"
+            autocomplete="off" >
+          <label class="btn btn-outline-primary" for="child">Child Comments</label>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Comment</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr *ngFor="let comment of commentsToDisplay;let i = index">
+              <th width="10" scope="row">{{i+1}}</th>
+
+              <td *ngIf="posts[comment.data.postId]"><img [src]="posts[comment.data.postId].image" class="img-fluid"
+                  style="min-width: 5rem;max-width: 5rem;"></td>
+              <td width="50" *ngIf="posts[comment.data.postId]">{{posts[comment.data.postId].title}}</td>
+
+              <td>{{comment.data.name}}</td>
+              <td width="350">{{comment.data.comment}}</td>
+              <td>
+            <tr>{{comment.data.createdAt|date:"dd-MM-YYY"}}</tr>
+            <tr>{{comment.data.createdAt|date:"HH:mm"}}</tr>
+            </td>
+            <td>
+              <button *ngIf="!comment.data.approved" (click)="onApproved(comment.id, true)"
+                class="btn btn-info mx-1  mb-1 ">Approve</button>
+              <button *ngIf="comment.data.approved" (click)="onApproved(comment.id,false)"
+                class="btn btn-success mx-1 mb-1 ">Unapprove</button>
+              <button (click)="onDelete(comment)" class="btn btn-danger mx-1  mb-1 ">Delete</button>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</section>

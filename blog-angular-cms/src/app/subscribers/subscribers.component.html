@@ -1,0 +1,46 @@
+<section class="container mt-5" id="categoryForm">
+  <div class="row justify-content-center shadow-effect my-5 p-5">
+    <div class="col-md-12">
+
+      <h3 class="text-center">Subscribers</h3>
+      <p class="text-center fs-5 mb-5">Manage blog subscribers here</p>
+
+      <div class="row justify-content-evenly">
+        <button routerLink="/" class="btn btn-lg btn-info col-12 col-sm-6 col-md-4 mt-1 mt-md-0">Back to
+          Dashboard</button>
+        <div class="col-12 col-sm-6 col-md-4 mt-1 mt-md-0"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row justify-content-center shadow-effect my-5 p-5">
+    <div class="col-md-12">
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr *ngFor="let subscriber of subscribers ;let i = index">
+              <th wiscope="row">{{i+1}}</th>
+              <td>{{subscriber.data.name}}</td>
+              <td>{{subscriber.data.email}}</td>
+              <td>
+                <button (click)="onDelete(subscriber.id)" class="btn btn-danger mx-1  mb-1 ">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</section>
