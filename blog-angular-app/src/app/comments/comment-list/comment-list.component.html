@@ -1,0 +1,6 @@
+<div class="card " *ngIf="comments" [ngClass]="[!isReply?'mt-5 shadow-effect':'border-0']">
+  <div class="card-body" [ngClass]="[!isReply?'':'py-0 pe-0 ps-1']">
+    <h4 class="mt-1" *ngIf="!isReply">Comment List ( {{comments.length}} )</h4>
+    <app-single-comment *ngFor="let comment of comments" [comment]="comment" [postId]="postId"></app-single-comment>
+  </div>
+</div>

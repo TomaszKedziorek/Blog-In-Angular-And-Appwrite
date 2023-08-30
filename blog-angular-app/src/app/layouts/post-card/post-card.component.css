@@ -1,0 +1,12 @@
+.card {
+  max-width: 400px;
+  min-height: 700px;
+  cursor:pointer;
+}
+
+.card img{
+  max-width: 100%;
+}
+.card-body small {
+  background-color: var(--bs-tertiary-bg);
+}

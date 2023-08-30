@@ -1,0 +1,15 @@
+nav.navbar {
+  background-color: var(--bs-tertiary-bg);
+}
+
+ul.navbar-nav>li.nav-item>a.nav-link {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  text-transform: uppercase;
+  color: var(--bs-body-color);
+}
+
+ul.navbar-nav>li.nav-item>a.nav-link:hover {
+  color: var(--bs-navbar-hover-color);
+  /* transition: 0.6s; */
+}

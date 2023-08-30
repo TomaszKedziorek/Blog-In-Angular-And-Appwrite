@@ -1,0 +1,29 @@
+<section class="container mt-5 post-section" *ngIf="post">
+  <div class="row">
+    <div class="col-lg-9">
+      <div class="card shadow-effect">
+        <img [src]="post.image" class="card-img-top img-fluid mx-auto d-block">
+        <div class="card-body">
+          <small class="text-center me-2 p-1 text-danger">{{post.category.category}}</small>
+          <small class="text-center me-2 p-1 text-success" *ngIf="post.isFeatured">Featured</small>
+          <small class="text-center me-2 p-1 text-info">Views - {{post.views}}</small>
+          <small class="text-center me-2 p-1 text-warning">LAST UPDATE - {{post.createdAt|date: "dd MMM YYYY,
+            HH:mm"}}</small>
+
+          <h1 class="my-3">{{post.title}}</h1>
+          <p class="fs-5" [innerHTML]="post.content"> </p>
+        </div>
+      </div>
+      <app-comment-form [postId]="postId"></app-comment-form>
+      <app-comment-list [postId]="postId" [isReply]="false"></app-comment-list>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="row" *ngIf="similarPosts">
+        <div *ngFor="let post of similarPosts" class="col-12 col-sm-6 col-lg-12 mb-0 mt-5 mb-lg-5 mt-lg-0">
+          <app-post-card [post]="post"></app-post-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

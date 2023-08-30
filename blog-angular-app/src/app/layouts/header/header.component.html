@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand p-1 bg-primary" [attr.data-bs-theme]="isLightTheme?'light':'dark'">
+  <div class="container-fluid justify-content-left">
+    <a class="logo" routerLink="/">Blog in Angular & Appwrite</a>
+  </div>
+  <div class="position-relative">
+    <div class="form-check form-switch me-5 position-absolute top-50 end-0 translate-middle-y">
+      <input [checked]="isLightTheme" (change)="onThemeSwitch()" type="checkbox" id="themeCheckbox"
+        class="form-check-input rounded-5 " [ngClass]="{'border-dark':isLightTheme}">
+      <label class="form-check-label" for="themeCheckbox">
+        <i *ngIf="!isLightTheme" class="bi bi-moon-stars-fill"></i>
+        <i *ngIf="isLightTheme" class="bi bi-brightness-high-fill text-light"></i>
+      </label>
+    </div>
+  </div>
+</nav>

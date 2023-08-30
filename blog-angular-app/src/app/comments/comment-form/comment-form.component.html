@@ -1,0 +1,48 @@
+<div class="card" [ngClass]="{'shadow-effect mt-5':isComment}">
+  <div class="card-body">
+    <div *ngIf="isComment">
+      <h4 class="mt-1">Leave a Comment</h4>
+      <p class="fs-5"> You can leave a comment using this comment form. </p>
+    </div>
+
+    <form #commentForm="ngForm" (submit)="onSubmit(commentForm)" *ngIf="!commentAddedSuccess">
+      <div class="form-group has-danger my-2 ">
+        <label *ngIf="isComment" for="commentName" class="col-form-label-lg">Name</label>
+        <input ngModel name="name" #name="ngModel" type="text" class="form-control shadow-effect"
+          [ngClass]="{'is-invalid border border-danger': name.touched && name.invalid,'form-control-lg':isComment}"
+          minlength="3" maxlength="100" id="commentName" placeholder="Enter your name" required>
+        <div *ngIf="name.touched && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors?.required">This field is required!</div>
+          <div *ngIf="name.errors?.minlength">This field must be 3-100 characters long!</div>
+        </div>
+      </div>
+
+      <div class="form-group has-danger my-2 ">
+        <label *ngIf="isComment" for="commentText" class="col-form-label col-form-label-lg">Comment</label>
+        <textarea ngModel name="comment" #comment="ngModel" class="form-control shadow-effect"
+          [ngClass]="{'is-invalid border border-danger': comment.touched && comment.invalid,'form-control-lg ':isComment}"
+          minlength="3" maxlength="350" id="commentText" rows="4" placeholder="Add your comment here"
+          required></textarea>
+        <div *ngIf="comment.touched && comment.invalid" class="invalid-feedback">
+          <div *ngIf="comment.errors?.required">This field is required!</div>
+          <div *ngIf="comment.errors?.minlength">This field must be 3-350 characters long!</div>
+        </div>
+      </div>
+
+      <div class="form-group my-2">
+        <button [disabled]="commentForm.invalid" class="btn btn-primary" [ngClass]="{'btn-lg ':isComment}">Add a
+          {{formStatus}}</button>
+      </div>
+    </form>
+
+    <div class="col-12">
+      <div *ngIf="commentAddedSuccess" class="alert alert-dismissible alert-success mb-0">
+        <strong>The comment will be visible after approval.</strong>
+      </div>
+      <div *ngIf="commentAddedFailed" class="alert alert-dismissible alert-warning mb-0">
+        <strong>Something went wrong...</strong>
+      </div>
+    </div>
+
+  </div>
+</div>
