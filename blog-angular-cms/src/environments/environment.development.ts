@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   appwriteConf: {
     projectId: "64b94c828068b5c2ee2f",
     databaseId: "64b9524b4955e74b3130",

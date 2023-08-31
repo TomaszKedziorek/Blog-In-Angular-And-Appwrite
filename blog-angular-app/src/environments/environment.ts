@@ -8,7 +8,7 @@ export const environment = {
     categoryCollectionId: '64ba9bf6003d4c541ebf',
     postCollectionId: '64c77f0809846e0dac35',
     subscribersCollectionId: '64d0f3b86d0c99cb5f36',
-    commentsCollectionId:'64e462d799f7b489bf3c'
+    commentsCollectionId: '64e462d799f7b489bf3c'
   },
 
 };
