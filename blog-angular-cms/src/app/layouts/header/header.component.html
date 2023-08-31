@@ -1,6 +1,15 @@
 <nav class="navbar navbar-expand p-0 bg-dark">
   <div class="container-fluid">
-    <div class="collapse navbar-collapse justify-content-end ">
+
+    <div class="collapse navbar-collapse justify-content-start  ms-3">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="mx-1 text-decoration-none" href="https://blogangularappwrite.azurewebsites.net/">View Blog</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="collapse navbar-collapse justify-content-end me-3">
       <ul class="navbar-nav" *ngIf="isLoggedIn$|async;else login">
         <li class="nav-item">
           <a class="mx-1 text-decoration-none" routerLink="">{{userEmail}}</a>
@@ -17,24 +26,21 @@
         </ul>
       </ng-template>
     </div>
+
   </div>
 </nav>
 
 <nav class="navbar navbar-expand p-1 bg-primary" [attr.data-bs-theme]="isLightTheme?'light':'dark'">
 
   <div class="container-fluid justify-content-left">
-    <a class="logo" routerLink="/">Blog in Angular & Appwrite</a>
+    <a class="logo" routerLink="/">CMS Blog in Angular & Appwrite</a>
   </div>
-
-  <div class="position-relative">
-    <div class="form-check form-switch me-5 position-absolute top-50 end-0 translate-middle-y">
-      <input [checked]="isLightTheme" (change)="onThemeSwitch()" type="checkbox" id="themeCheckbox"
-        class="form-check-input rounded-5 " [ngClass]="{'border-dark':isLightTheme}">
-      <label class="form-check-label" for="themeCheckbox">
-        <i *ngIf="!isLightTheme" class="bi bi-moon-stars-fill"></i>
-        <i *ngIf="isLightTheme" class="bi bi-brightness-high-fill text-light"></i>
-      </label>
-    </div>
+  <div class="form-check form-switch me-5">
+    <input [checked]="isLightTheme" (change)="onThemeSwitch()" type="checkbox" id="themeCheckbox"
+      class="form-check-input rounded-5 " [ngClass]="{'border-dark':isLightTheme}" style="cursor: pointer;">
+    <label class="form-check-label" for="themeCheckbox" style="cursor: pointer;">
+      <i *ngIf="!isLightTheme" class="bi bi-moon-stars-fill"></i>
+      <i *ngIf="isLightTheme" class="bi bi-brightness-high-fill text-light"></i>
+    </label>
   </div>
-
 </nav>
