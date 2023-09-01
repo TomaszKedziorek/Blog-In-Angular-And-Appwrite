@@ -3,8 +3,12 @@
     <div class="col-md-12">
 
       <h3 class="text-center">Login</h3>
-      <p class=" text-center fs-5 mb-5">Logni to admin account to manage the blog.</p>
-
+      <p class=" text-center fs-5">Logni to admin account to manage the blog.</p>
+      <p class=" text-center mb-0">You can use this credentials with limited access to functionalities:</p>
+      <div class="col ">
+        <p class=" text-center mb-0"><span class="text-info">email:</span> guest.user@test.com</p>
+        <p class=" text-center mb-0"><span class="text-info">password:</span> qwerty123</p>
+      </div>
       <form #loginForm="ngForm" (submit)="onSubmit(loginForm.value)">
         <div class="row justify-content-center">
           <div class="col-12 col-md-9 col-lg-5">
