@@ -10,17 +10,21 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
 
   public isLightTheme: boolean = false;
-  public isLoggedIn!: boolean;
   public isLoggedIn$!: Observable<boolean>;
   public userEmail!: string;
 
   constructor(private auth: AuthService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.isLoggedIn$ = this.auth.isLoggedIn();
+    this.showLoggedUser();
+    this.auth.watchLocalStorage().subscribe(() => this.showLoggedUser());
+  }
+
+  private showLoggedUser() {
     const user: string | null = localStorage.getItem("user");
     if (user) {
       this.userEmail = JSON.parse(user).email;
-      this.isLoggedIn$ = this.auth.isLoggedIn();
     }
   }
 

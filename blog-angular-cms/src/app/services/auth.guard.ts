@@ -10,7 +10,7 @@ export const authGuard: CanActivateFn = async (route, state) => {
   const toastr = inject(ToastrService);
 
   if (auth.isLoggedInGuard) {
-    auth.loggedIn.next(true);
+    auth.setIsLoggedIn(true);
     return true;
   }
   else {

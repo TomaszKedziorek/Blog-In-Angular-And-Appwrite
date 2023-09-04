@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { AppwriteService } from './appwrite.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -8,8 +8,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isLoggedInGuard: boolean = false;
+  private localStorageSubject = new Subject<String>();
 
   constructor(
     private appwrite: AppwriteService,
@@ -20,8 +21,8 @@ export class AuthService {
   public login(email: string, password: string) {
     this.appwrite.login(email, password)
       .then(() => {
-        this.toastr.success("Login Succesfully!");
         this.loadAccountDataToLocalStorage();
+        this.toastr.success("Login Succesfully!");
         this.setIsLoggedIn(true);
         this.router.navigate(['/']);
       }).catch(() => {
@@ -31,7 +32,7 @@ export class AuthService {
 
   public logout() {
     this.appwrite.logOut().then(() => {
-      localStorage.removeItem("user");
+      this.removeAccountDataFromLocalStorage();
       this.toastr.success('Log out succesfully!')
       this.setIsLoggedIn(false);
       this.router.navigate(['/login']);
@@ -40,23 +41,33 @@ export class AuthService {
     })
   }
 
-  public getAccount(){
+  public getAccount() {
     return this.appwrite.getAccount();
   }
 
-  private loadAccountDataToLocalStorage() {
-    this.appwrite.getAccount().then(result => {
-      localStorage.setItem("user", JSON.stringify(result));
-    })
-  }
-
-  public isLoggedIn() {
+  public isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable()
   }
 
   public setIsLoggedIn(value: boolean): void {
     this.loggedIn.next(value);
     this.isLoggedInGuard = value;
+  }
+
+  watchLocalStorage(): Observable<String> {
+    return this.localStorageSubject.asObservable();
+  }
+
+  private loadAccountDataToLocalStorage() {
+    this.appwrite.getAccount().then(result => {
+      localStorage.setItem("user", JSON.stringify(result));
+      this.localStorageSubject.next('changed');
+    })
+  }
+
+  private removeAccountDataFromLocalStorage() {
+    localStorage.removeItem("user");
+    this.localStorageSubject.next('changed');
   }
 
 }
